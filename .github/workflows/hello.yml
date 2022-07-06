@@ -12,5 +12,11 @@ jobs:
       - name: Say hello
         run: |
           echo "Hello World!"
-          date
-          ls
+
+      - name: Now it is
+        run: |
+          echo "It is $(date)"
+
+      - name: Add a comment
+        run: |
+          ls -l
