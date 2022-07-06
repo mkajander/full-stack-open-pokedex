@@ -17,6 +17,6 @@ jobs:
         run: |
           echo "It is $(date)"
 
-      - name: Add a comment
+      - name: Directory content
         run: |
           ls -l
