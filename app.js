@@ -15,7 +15,11 @@ app.get('/version', (req, res) => {
 })
 
 app.get('/something', (req, res) => {
-  res.send('something')
+  res.send('something ')
+})
+
+app.get('/something-else', (req, res) => {
+  res.send('something-else ')
 })
 
 app.listen(PORT, () => {
