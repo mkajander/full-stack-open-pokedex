@@ -29,12 +29,12 @@ jobs:
       - name: test
         run: npm run test
 
-#      - name: e2e tests
-#        uses: cypress-io/github-action@v4
-#        with:
-#          command: npm run test:e2e
-#          start: npm run start-prod
-#          wait-on: http://localhost:5000
+      - name: e2e tests
+        uses: cypress-io/github-action@v4
+        with:
+          command: npm run test:e2e
+          start: npm run start-prod
+          wait-on: http://localhost:5000
 
       - name: deploy
         if: ${{ github.event_name == 'push' }}
@@ -46,3 +46,31 @@ jobs:
           healthcheck: "https://mibkr-pokemon-app.herokuapp.com/health"
           checkstring: "ok"
           rollbackonhealthcheckfailed: true
+
+  tag_release:
+    needs: [simple_deployment_pipeline]
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+
+  a_test_job:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: gihub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: commits
+        env:
+          COMMITS: ${{ toJson(github.event.commits) }}
+        run: echo "$COMMITS"
+      - name: commit messages
+        env:
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
+        run: echo "$COMMIT_MESSAGES"
