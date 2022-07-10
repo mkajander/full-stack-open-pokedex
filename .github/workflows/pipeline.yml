@@ -26,12 +26,12 @@ jobs:
       - name: test
         run: npm run test
 
-      - name: e2e tests
-        uses: cypress-io/github-action@v4
-        with:
-          command: npm run test:e2e
-          start: npm run start-prod
-          wait-on: http://localhost:5000
+#      - name: e2e tests
+#        uses: cypress-io/github-action@v4
+#        with:
+#          command: npm run test:e2e
+#          start: npm run start-prod
+#          wait-on: http://localhost:5000
 
       - name: deploy
         uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
@@ -39,5 +39,6 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "mibkr-pokemon-app" #Must be unique in Heroku
           heroku_email: "mb.kajander@gmail.com"
-          healthcheck_url: "http://localhost:5000/version"
+          healthcheck: "http://localhost:5000/version"
           checkstring: "2"
+          rollbackonhealthcheckfailed: true
