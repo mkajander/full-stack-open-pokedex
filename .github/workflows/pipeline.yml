@@ -40,5 +40,5 @@ jobs:
           heroku_app_name: "mibkr-pokemon-app" #Must be unique in Heroku
           heroku_email: "mb.kajander@gmail.com"
           healthcheck: "https://mibkr-pokemon-app.herokuapp.com/version"
-          checkstring: "2"
+          checkstring: "v2"
           rollbackonhealthcheckfailed: true
