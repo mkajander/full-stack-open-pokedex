@@ -39,6 +39,6 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "mibkr-pokemon-app" #Must be unique in Heroku
           heroku_email: "mb.kajander@gmail.com"
-          healthcheck: "https://mibkr-pokemon-app.herokuapp.com/version"
-          checkstring: "v2"
+          healthcheck: "https://mibkr-pokemon-app.herokuapp.com/health"
+          checkstring: "ok"
           rollbackonhealthcheckfailed: true
