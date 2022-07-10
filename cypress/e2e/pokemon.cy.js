@@ -1,4 +1,14 @@
 describe('Pokedex', function () {
+    beforeEach(function () {
+        cy.intercept('GET', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/*.png', {
+            statusCode: 200,
+            body: '',
+            headers: {
+                'content-type': 'image/png'
+            }
+        });
+    });
+
     it('front page can be opened', function () {
         cy.visit('http://localhost:5000', {timeout: 200000});
         cy.contains('ivysaur')
