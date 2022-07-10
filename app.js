@@ -10,6 +10,10 @@ app.get('/version', (req, res) => {
   res.send('2') // change this string to ensure a new version deployed
 })
 
+app.get('/something', (req, res) => {
+  res.send('something')
+})
+
 app.listen(PORT, () => {
   console.log('server started on port 5000')
 })
