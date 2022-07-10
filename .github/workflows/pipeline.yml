@@ -37,7 +37,7 @@ jobs:
           wait-on: http://localhost:5000
 
       - name: deploy
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' && !contains( join(toJson(github.event.commits.*.message)), '#skip') }}
         uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -49,7 +49,7 @@ jobs:
 
   tag_release:
     needs: [simple_deployment_pipeline]
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ github.event_name == 'push' && !contains( join(toJson(github.event.commits.*.message)), '#skip')}}
     runs-on: ubuntu-20.04
     steps:
       - name: Bump version and push tag
@@ -57,4 +57,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
-          DRY_RUN: ${{ contains( join(toJson(github.event.commits.*.message)), '#skip') }}
