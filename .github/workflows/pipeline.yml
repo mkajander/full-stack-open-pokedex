@@ -63,27 +63,27 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
 
-  discord_notification:
-    needs: [simple_deployment_pipeline, tag_release]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deployment success notification
-        uses: rjstone/discord-webhook-notify@v1
-        if: success() && github.event_name == 'push'
-        with:
-          severity: info
-          color: "#78cc27"
-          text: Pokemon app deployment successful
-          avatarUrl: https://avatars.githubusercontent.com/u/34684415?v=4
-          description: to https://mibkr-pokemon-app.herokuapp.com/ by ${{ github.event.pusher.name }}
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
-
-      - name: Deployment failed notification
-        uses: rjstone/discord-webhook-notify@v1
-        if: failure() && github.event_name == 'push'
-        with:
-          severity: error
-          color: "#ff0000"
-          avatarUrl: https://avatars.githubusercontent.com/u/34684415?v=4
-          description: commit ${{ github.event.head_commit.url }} by ${{ github.event.head_commit.author.username }} broke the build as usual :(
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
+#  discord_notification:
+#    needs: [simple_deployment_pipeline, tag_release]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Deployment success notification
+#        uses: rjstone/discord-webhook-notify@v1
+#        if: success() && github.event_name == 'push'
+#        with:
+#          severity: info
+#          color: "#78cc27"
+#          text: Pokemon app deployment successful
+#          avatarUrl: https://avatars.githubusercontent.com/u/34684415?v=4
+#          description: to https://mibkr-pokemon-app.herokuapp.com/ by ${{ github.event.pusher.name }}
+#          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
+#
+#      - name: Deployment failed notification
+#        uses: rjstone/discord-webhook-notify@v1
+#        if: failure() && github.event_name == 'push'
+#        with:
+#          severity: error
+#          color: "#ff0000"
+#          avatarUrl: https://avatars.githubusercontent.com/u/34684415?v=4
+#          description: commit ${{ github.event.head_commit.url }} by ${{ github.event.head_commit.author.username }} broke the build as usual :(
+#          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
